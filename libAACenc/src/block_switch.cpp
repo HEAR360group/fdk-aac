@@ -2,7 +2,7 @@
 /* -----------------------------------------------------------------------------------------------------------
 Software License for The Fraunhofer FDK AAC Codec Library for Android
 
-© Copyright  1995 - 2013 Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+ï¿½ Copyright  1995 - 2013 Fraunhofer-Gesellschaft zur Fï¿½rderung der angewandten Forschung e.V.
   All rights reserved.
 
  1.    INTRODUCTION
@@ -212,18 +212,18 @@ int FDKaacEnc_BlockSwitching(BLOCK_SWITCHING_CONTROL *blockSwitchingControl, con
 
     UINT nBlockSwitchWindows = blockSwitchingControl->nBlockSwitchWindows;
 
-    /* for LFE : only LONG window allowed */
-    if (isLFE) {
-
-      /* case LFE: */
-      /* only long blocks, always use sine windows (MPEG2 AAC, MPEG4 AAC) */
-      blockSwitchingControl->lastWindowSequence = LONG_WINDOW;
-      blockSwitchingControl->windowShape    = SINE_WINDOW;
-      blockSwitchingControl->noOfGroups     = 1;
-      blockSwitchingControl->groupLen[0]    = 1;
-
-      return(0);
-    };
+    // /* for LFE : only LONG window allowed */
+    // if (isLFE) {
+    //
+    //   /* case LFE: */
+    //   /* only long blocks, always use sine windows (MPEG2 AAC, MPEG4 AAC) */
+    //   blockSwitchingControl->lastWindowSequence = LONG_WINDOW;
+    //   blockSwitchingControl->windowShape    = SINE_WINDOW;
+    //   blockSwitchingControl->noOfGroups     = 1;
+    //   blockSwitchingControl->groupLen[0]    = 1;
+    //
+    //   return(0);
+    // };
 
     /* Save current attack index as last attack index */
     blockSwitchingControl->lastattack = blockSwitchingControl->attack;
@@ -541,5 +541,3 @@ int FDKaacEnc_SyncBlockSwitching (
 
   return 0;
 }
-
-

@@ -2,7 +2,7 @@
 /* -----------------------------------------------------------------------------------------------------------
 Software License for The Fraunhofer FDK AAC Codec Library for Android
 
-© Copyright  1995 - 2015 Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+ï¿½ Copyright  1995 - 2015 Fraunhofer-Gesellschaft zur Fï¿½rderung der angewandten Forschung e.V.
   All rights reserved.
 
  1.    INTRODUCTION
@@ -1576,13 +1576,13 @@ INT FDKsbrEnc_Reallocate(
   for (coreEl=0; coreEl<noElements; coreEl++)
   {
     /* SBR only handles SCE and CPE's */
-    if (elInfo[coreEl].elType == ID_SCE || elInfo[coreEl].elType == ID_CPE) {
+    if (elInfo[coreEl].elType == ID_SCE || elInfo[coreEl].elType == ID_CPE || elInfo[coreEl].elType == ID_LFE) {
       el++;
     } else {
-      if (elInfo[coreEl].elType == ID_LFE) {
-          hSbrEncoder->lfeChIdx = elInfo[coreEl].ChannelIndex[0];
-      }
-      continue;
+      // if (elInfo[coreEl].elType == ID_LFE) {
+      //     hSbrEncoder->lfeChIdx = elInfo[coreEl].ChannelIndex[0];
+      // }
+      // continue;
     }
 
     SBR_ELEMENT_INFO    *pelInfo = &elInfo[coreEl];
@@ -2328,20 +2328,20 @@ sbrEncoder_EncodeFrame(  HANDLE_SBR_ENCODER   hSbrEncoder,
     }
   }
 
-  if ( ( hSbrEncoder->lfeChIdx!=-1) && (hSbrEncoder->downSampleFactor > 1) )
-  {   /* lfe downsampler */
-      INT nOutSamples;
-
-      FDKaacEnc_Downsample(&hSbrEncoder->lfeDownSampler,
-                            samples + hSbrEncoder->downsampledOffset + hSbrEncoder->bufferOffset + hSbrEncoder->lfeChIdx,
-                            hSbrEncoder->frameSize,
-                            timeInStride,
-                            samples + hSbrEncoder->downsampledOffset + hSbrEncoder->lfeChIdx,
-                           &nOutSamples,
-                            hSbrEncoder->nChannels);
-
-
-  }
+  // if ( ( hSbrEncoder->lfeChIdx!=-1) && (hSbrEncoder->downSampleFactor > 1) )
+  // {   /* lfe downsampler */
+  //     INT nOutSamples;
+  //
+  //     FDKaacEnc_Downsample(&hSbrEncoder->lfeDownSampler,
+  //                           samples + hSbrEncoder->downsampledOffset + hSbrEncoder->bufferOffset + hSbrEncoder->lfeChIdx,
+  //                           hSbrEncoder->frameSize,
+  //                           timeInStride,
+  //                           samples + hSbrEncoder->downsampledOffset + hSbrEncoder->lfeChIdx,
+  //                          &nOutSamples,
+  //                           hSbrEncoder->nChannels);
+  //
+  //
+  // }
 
   return 0;
 }

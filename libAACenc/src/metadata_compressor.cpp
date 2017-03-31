@@ -2,7 +2,7 @@
 /* -----------------------------------------------------------------------------------------------------------
 Software License for The Fraunhofer FDK AAC Codec Library for Android
 
-© Copyright  1995 - 2013 Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+ï¿½ Copyright  1995 - 2013 Fraunhofer-Gesellschaft zur Fï¿½rderung der angewandten Forschung e.V.
   All rights reserved.
 
  1.    INTRODUCTION
@@ -681,9 +681,9 @@ INT FDK_DRC_Generator_Calc(
             for (c = 0; c < (int)drcComp->channels; c++) {
                 const INT_PCM* pSamples = &inSamples[c];
 
-                if (c == drcComp->channelIdx[LFE]) {
-                  continue;  /* skip LFE */
-                }
+                // if (c == drcComp->channelIdx[LFE]) {
+                //   continue;  /* skip LFE */
+                // }
 
                 /* get filter states */
                 x1 = drcComp->filter[c].x1;
@@ -730,10 +730,10 @@ INT FDK_DRC_Generator_Calc(
 
             for (c = 0; c < (int)drcComp->channels; c++) {
                 const INT_PCM* pSamples = &inSamples[c];
-
-                if ((int)c == drcComp->channelIdx[LFE]) {
-                  continue;  /* skip LFE */
-                }
+                
+                // if ((int)c == drcComp->channelIdx[LFE]) {
+                //   continue;  /* skip LFE */
+                // }
 
                 i = 0;
 
@@ -1034,5 +1034,3 @@ DRC_PROFILE FDK_DRC_Generator_getCompProfile(const HDRC_COMP drcComp)
 {
     return drcComp->profile[1];
 }
-
-

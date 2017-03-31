@@ -2,7 +2,7 @@
 /* -----------------------------------------------------------------------------------------------------------
 Software License for The Fraunhofer FDK AAC Codec Library for Android
 
-© Copyright  1995 - 2015 Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+ï¿½ Copyright  1995 - 2015 Fraunhofer-Gesellschaft zur Fï¿½rderung der angewandten Forschung e.V.
   All rights reserved.
 
  1.    INTRODUCTION
@@ -595,10 +595,10 @@ AAC_ENCODER_ERROR FDKaacEnc_psyMain(INT                 channels,
     for(ch = 0; ch < channels; ch++)
     {
         /* update number of active bands */
-        if (psyStatic[ch]->isLFE) {
-            psyData[ch]->sfbActive = hThisPsyConf[ch]->sfbActiveLFE;
-            psyData[ch]->lowpassLine = hThisPsyConf[ch]->lowpassLineLFE;
-        } else
+        // if (psyStatic[ch]->isLFE) {
+        //     psyData[ch]->sfbActive = hThisPsyConf[ch]->sfbActiveLFE;
+        //     psyData[ch]->lowpassLine = hThisPsyConf[ch]->lowpassLineLFE;
+        // } else
         {
             psyData[ch]->sfbActive = hThisPsyConf[ch]->sfbActive;
             psyData[ch]->lowpassLine = hThisPsyConf[ch]->lowpassLine;
@@ -764,11 +764,11 @@ AAC_ENCODER_ERROR FDKaacEnc_psyMain(INT                 channels,
     }
 
     /* Advance psychoacoustics: Tonality and TNS */
-    if (psyStatic[0]->isLFE) {
-        tnsData[0]->dataRaw.Long.subBlockInfo.tnsActive[HIFILT] = 0;
-        tnsData[0]->dataRaw.Long.subBlockInfo.tnsActive[LOFILT] = 0;
-    }
-    else
+    // if (psyStatic[0]->isLFE) {
+    //     tnsData[0]->dataRaw.Long.subBlockInfo.tnsActive[HIFILT] = 0;
+    //     tnsData[0]->dataRaw.Long.subBlockInfo.tnsActive[LOFILT] = 0;
+    // }
+    // else
     {
 
         for(ch = 0; ch < channels; ch++) {
@@ -982,7 +982,7 @@ AAC_ENCODER_ERROR FDKaacEnc_psyMain(INT                 channels,
                }
             }
 
-            if (!psyStatic[ch]->isLFE)
+            // if (!psyStatic[ch]->isLFE)
             {
                 /* preecho control */
                 if(psyStatic[ch]->blockSwitchingControl.lastWindowSequence == STOP_WINDOW) {
@@ -1143,7 +1143,7 @@ AAC_ENCODER_ERROR FDKaacEnc_psyMain(INT                 channels,
 
     for(ch=0;ch<channels;ch++) {
         INT win = (isShortWindow[ch]?1:0);
-        if (!psyStatic[ch]->isLFE)
+        // if (!psyStatic[ch]->isLFE)
         {
             /* PNS Decision */
             FDKaacEnc_PnsDetect( &(psyConf[0].pnsConf),
@@ -1272,12 +1272,12 @@ AAC_ENCODER_ERROR FDKaacEnc_psyMain(INT                 channels,
     PNS Coding
   */
   for(ch=0;ch<channels;ch++) {
-      if (psyStatic[ch]->isLFE) {
-          /* no PNS coding */
-          for(sfb = 0; sfb < psyData[ch]->sfbActive; sfb++) {
-            psyOutChannel[ch]->noiseNrg[sfb] = NO_NOISE_PNS;
-          }
-      } else
+      // if (psyStatic[ch]->isLFE) {
+      //     /* no PNS coding */
+      //     for(sfb = 0; sfb < psyData[ch]->sfbActive; sfb++) {
+      //       psyOutChannel[ch]->noiseNrg[sfb] = NO_NOISE_PNS;
+      //     }
+      // } else
       {
           FDKaacEnc_CodePnsChannel(psyData[ch]->sfbActive,
                          &(psyConf[ch].pnsConf),

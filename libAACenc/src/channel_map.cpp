@@ -2,7 +2,7 @@
 /* -----------------------------------------------------------------------------------------------------------
 Software License for The Fraunhofer FDK AAC Codec Library for Android
 
-© Copyright  1995 - 2013 Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+ï¿½ Copyright  1995 - 2013 Fraunhofer-Gesellschaft zur Fï¿½rderung der angewandten Forschung e.V.
   All rights reserved.
 
  1.    INTRODUCTION
@@ -441,7 +441,7 @@ AAC_ENCODER_ERROR FDKaacEnc_InitElementBits(QC_STATE *hQC,
     FIXP_DBL cpe2Rate = cm->elInfo[2].relativeBits;
     FIXP_DBL lfeRate  = cm->elInfo[3].relativeBits;
 
-    int maxBitsTot = maxChannelBits * 5; /* LFE does not add to bit reservoir */
+    int maxBitsTot = maxChannelBits * 6; /* LFE does not add to bit reservoir */
     int sc = CountLeadingBits(fixMax(maxChannelBits,averageBitsTot));
     int maxLfeBits = (int) FDKmax ( (INT)((fMult(lfeRate,(FIXP_DBL)(maxChannelBits<<sc))>>sc)<<1),
                                     (INT)((fMult(FL2FXCONST_DBL(1.1f/2.f),fMult(lfeRate,(FIXP_DBL)(averageBitsTot<<sc)))<<1)>>sc) );
@@ -449,7 +449,7 @@ AAC_ENCODER_ERROR FDKaacEnc_InitElementBits(QC_STATE *hQC,
     maxChannelBits = (maxBitsTot - maxLfeBits);
     sc = CountLeadingBits(maxChannelBits);
 
-    maxChannelBits = fMult((FIXP_DBL)maxChannelBits<<sc,GetInvInt(5))>>sc;
+    maxChannelBits = fMult((FIXP_DBL)maxChannelBits<<sc,GetInvInt(6))>>sc;
 
     hQC->elementBits[0]->chBitrateEl      = fMult(sceRate,  (FIXP_DBL)(bitrateTot<<sc_brTot))>>sc_brTot;
     hQC->elementBits[1]->chBitrateEl      = fMult(cpe1Rate, (FIXP_DBL)(bitrateTot<<sc_brTot))>>(sc_brTot+1);
@@ -459,7 +459,7 @@ AAC_ENCODER_ERROR FDKaacEnc_InitElementBits(QC_STATE *hQC,
     hQC->elementBits[0]->maxBitsEl        = maxChannelBits;
     hQC->elementBits[1]->maxBitsEl        = 2*maxChannelBits;
     hQC->elementBits[2]->maxBitsEl        = 2*maxChannelBits;
-    hQC->elementBits[3]->maxBitsEl        = maxLfeBits;
+    hQC->elementBits[3]->maxBitsEl        = maxChannelBits;
 
     break;
   }
@@ -476,12 +476,12 @@ AAC_ENCODER_ERROR FDKaacEnc_InitElementBits(QC_STATE *hQC,
     FIXP_DBL cpe3Rate = hQC->elementBits[cpe3Idx]->relativeBitsEl = cm->elInfo[cpe3Idx].relativeBits;
     FIXP_DBL lfeRate  = hQC->elementBits[lfeIdx]->relativeBitsEl = cm->elInfo[lfeIdx].relativeBits;
 
-    int maxBitsTot = maxChannelBits * 7; /* LFE does not add to bit reservoir */
+    int maxBitsTot = maxChannelBits * 8; /* LFE does not add to bit reservoir */
     int sc = CountLeadingBits(fixMax(maxChannelBits,averageBitsTot));
     int maxLfeBits = (int) FDKmax ( (INT)((fMult(lfeRate,(FIXP_DBL)(maxChannelBits<<sc))>>sc)<<1),
                                     (INT)((fMult(FL2FXCONST_DBL(1.1f/2.f),fMult(lfeRate,(FIXP_DBL)(averageBitsTot<<sc)))<<1)>>sc) );
 
-    maxChannelBits = (maxBitsTot - maxLfeBits) / 7;
+    maxChannelBits = (maxBitsTot - maxLfeBits) / 8;
 
     hQC->elementBits[0]->chBitrateEl = fMult(sceRate,  (FIXP_DBL)(bitrateTot<<sc_brTot))>>sc_brTot;
     hQC->elementBits[1]->chBitrateEl = fMult(cpe1Rate, (FIXP_DBL)(bitrateTot<<sc_brTot))>>(sc_brTot+1);
@@ -493,7 +493,7 @@ AAC_ENCODER_ERROR FDKaacEnc_InitElementBits(QC_STATE *hQC,
     hQC->elementBits[1]->maxBitsEl = 2*maxChannelBits;
     hQC->elementBits[2]->maxBitsEl = 2*maxChannelBits;
     hQC->elementBits[cpe3Idx]->maxBitsEl = 2*maxChannelBits;
-    hQC->elementBits[lfeIdx]->maxBitsEl = maxLfeBits;
+    hQC->elementBits[lfeIdx]->maxBitsEl = maxChannelBits;
     break;
   }
   default:
