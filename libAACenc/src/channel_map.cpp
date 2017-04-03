@@ -328,21 +328,21 @@ AAC_ENCODER_ERROR FDKaacEnc_InitChannelMapping(CHANNEL_MODE mode, CHANNEL_ORDER 
 
     case MODE_1_2_2_1:
       /* (5.1) sce + cpe + cpe + lfe */
-      FDKaacEnc_initElement(&cm->elInfo[0], ID_SCE, &count, mode, co, it_cnt, FL2FXCONST_DBL(0.24f));
+      FDKaacEnc_initElement(&cm->elInfo[0], ID_SCE, &count, mode, co, it_cnt, FL2FXCONST_DBL(0.35f));
       FDKaacEnc_initElement(&cm->elInfo[1], ID_CPE, &count, mode, co, it_cnt, FL2FXCONST_DBL(0.35f));
       FDKaacEnc_initElement(&cm->elInfo[2], ID_CPE, &count, mode, co, it_cnt, FL2FXCONST_DBL(0.35f));
-      FDKaacEnc_initElement(&cm->elInfo[3], ID_LFE, &count, mode, co, it_cnt, FL2FXCONST_DBL(0.06f));
+      FDKaacEnc_initElement(&cm->elInfo[3], ID_LFE, &count, mode, co, it_cnt, FL2FXCONST_DBL(0.35f));
       break;
 
     case MODE_1_2_2_2_1:
     case MODE_7_1_REAR_SURROUND:
     case MODE_7_1_FRONT_CENTER:
       /* (7.1) sce + cpe + cpe + cpe + lfe */
-      FDKaacEnc_initElement(&cm->elInfo[0], ID_SCE, &count, mode, co, it_cnt, FL2FXCONST_DBL(0.18f));
+      FDKaacEnc_initElement(&cm->elInfo[0], ID_SCE, &count, mode, co, it_cnt, FL2FXCONST_DBL(0.26f));
       FDKaacEnc_initElement(&cm->elInfo[1], ID_CPE, &count, mode, co, it_cnt, FL2FXCONST_DBL(0.26f));
       FDKaacEnc_initElement(&cm->elInfo[2], ID_CPE, &count, mode, co, it_cnt, FL2FXCONST_DBL(0.26f));
       FDKaacEnc_initElement(&cm->elInfo[3], ID_CPE, &count, mode, co, it_cnt, FL2FXCONST_DBL(0.26f));
-      FDKaacEnc_initElement(&cm->elInfo[4], ID_LFE, &count, mode, co, it_cnt, FL2FXCONST_DBL(0.04f));
+      FDKaacEnc_initElement(&cm->elInfo[4], ID_LFE, &count, mode, co, it_cnt, FL2FXCONST_DBL(0.26f));
       break;
     default:
       //*chMap=0;
@@ -446,10 +446,11 @@ AAC_ENCODER_ERROR FDKaacEnc_InitElementBits(QC_STATE *hQC,
     int maxLfeBits = (int) FDKmax ( (INT)((fMult(lfeRate,(FIXP_DBL)(maxChannelBits<<sc))>>sc)<<1),
                                     (INT)((fMult(FL2FXCONST_DBL(1.1f/2.f),fMult(lfeRate,(FIXP_DBL)(averageBitsTot<<sc)))<<1)>>sc) );
 
-    maxChannelBits = (maxBitsTot - maxLfeBits);
-    sc = CountLeadingBits(maxChannelBits);
+    maxChannelBits = maxBitsTot / 6;
+    //maxChannelBits = (maxBitsTot - maxLfeBits);
+    //sc = CountLeadingBits(maxChannelBits);
 
-    maxChannelBits = fMult((FIXP_DBL)maxChannelBits<<sc,GetInvInt(6))>>sc;
+    //maxChannelBits = fMult((FIXP_DBL)maxChannelBits<<sc,GetInvInt(6))>>sc;
 
     hQC->elementBits[0]->chBitrateEl      = fMult(sceRate,  (FIXP_DBL)(bitrateTot<<sc_brTot))>>sc_brTot;
     hQC->elementBits[1]->chBitrateEl      = fMult(cpe1Rate, (FIXP_DBL)(bitrateTot<<sc_brTot))>>(sc_brTot+1);
@@ -481,7 +482,8 @@ AAC_ENCODER_ERROR FDKaacEnc_InitElementBits(QC_STATE *hQC,
     int maxLfeBits = (int) FDKmax ( (INT)((fMult(lfeRate,(FIXP_DBL)(maxChannelBits<<sc))>>sc)<<1),
                                     (INT)((fMult(FL2FXCONST_DBL(1.1f/2.f),fMult(lfeRate,(FIXP_DBL)(averageBitsTot<<sc)))<<1)>>sc) );
 
-    maxChannelBits = (maxBitsTot - maxLfeBits) / 8;
+    maxChannelBits = maxBitsTot / 8;
+    //maxChannelBits = (maxBitsTot - maxLfeBits) / 8;
 
     hQC->elementBits[0]->chBitrateEl = fMult(sceRate,  (FIXP_DBL)(bitrateTot<<sc_brTot))>>sc_brTot;
     hQC->elementBits[1]->chBitrateEl = fMult(cpe1Rate, (FIXP_DBL)(bitrateTot<<sc_brTot))>>(sc_brTot+1);

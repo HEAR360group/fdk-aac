@@ -260,17 +260,18 @@ AAC_ENCODER_ERROR FDKaacEnc_psyInit(PSY_INTERNAL    *hPsy,
 
   for (i=0; i<cm->nElements; i++) {
     for (ch=0; ch<cm->elInfo[i].nChannelsInEl; ch++) {
-      if (cm->elInfo[i].elType!=ID_LFE) {
+      // if (cm->elInfo[i].elType!=ID_LFE) 
+      {
         hPsy->psyElement[i]->psyStatic[ch] = hPsy->pStaticChannels[chInc];
         if (chInc>=resetChannels) {
             FDKaacEnc_psyInitStates(hPsy, hPsy->psyElement[i]->psyStatic[ch], audioObjectType);
         }
         hPsy->psyElement[i]->psyStatic[ch]->isLFE = 0;
       }
-      else {
-        hPsy->psyElement[i]->psyStatic[ch] = hPsy->pStaticChannels[nMaxChannels-1];
-        hPsy->psyElement[i]->psyStatic[ch]->isLFE = 1;
-      }
+      // else {
+      //   hPsy->psyElement[i]->psyStatic[ch] = hPsy->pStaticChannels[nMaxChannels-1];
+      //   hPsy->psyElement[i]->psyStatic[ch]->isLFE = 1;
+      // }
       chInc++;
     }
   }
