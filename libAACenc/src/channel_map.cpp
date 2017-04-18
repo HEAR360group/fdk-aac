@@ -435,11 +435,11 @@ AAC_ENCODER_ERROR FDKaacEnc_InitElementBits(QC_STATE *hQC,
     hQC->elementBits[0]->relativeBitsEl = cm->elInfo[0].relativeBits;
     hQC->elementBits[1]->relativeBitsEl = cm->elInfo[1].relativeBits;
     hQC->elementBits[2]->relativeBitsEl = cm->elInfo[2].relativeBits;
-    hQC->elementBits[3]->relativeBitsEl = cm->elInfo[3].relativeBits;
+    hQC->elementBits[3]->relativeBitsEl = cm->elInfo[0].relativeBits;
     FIXP_DBL sceRate  = cm->elInfo[0].relativeBits;
     FIXP_DBL cpe1Rate = cm->elInfo[1].relativeBits;
     FIXP_DBL cpe2Rate = cm->elInfo[2].relativeBits;
-    FIXP_DBL lfeRate  = cm->elInfo[3].relativeBits;
+    FIXP_DBL lfeRate  = cm->elInfo[0].relativeBits;
 
     int maxBitsTot = maxChannelBits * 6; /* LFE does not add to bit reservoir */
     int sc = CountLeadingBits(fixMax(maxChannelBits,averageBitsTot));
@@ -475,7 +475,7 @@ AAC_ENCODER_ERROR FDKaacEnc_InitElementBits(QC_STATE *hQC,
     FIXP_DBL cpe1Rate = hQC->elementBits[1]->relativeBitsEl = cm->elInfo[1].relativeBits;
     FIXP_DBL cpe2Rate = hQC->elementBits[2]->relativeBitsEl = cm->elInfo[2].relativeBits;
     FIXP_DBL cpe3Rate = hQC->elementBits[cpe3Idx]->relativeBitsEl = cm->elInfo[cpe3Idx].relativeBits;
-    FIXP_DBL lfeRate  = hQC->elementBits[lfeIdx]->relativeBitsEl = cm->elInfo[lfeIdx].relativeBits;
+    FIXP_DBL lfeRate  = hQC->elementBits[lfeIdx]->relativeBitsEl = cm->elInfo[0].relativeBits;
 
     int maxBitsTot = maxChannelBits * 8; /* LFE does not add to bit reservoir */
     int sc = CountLeadingBits(fixMax(maxChannelBits,averageBitsTot));

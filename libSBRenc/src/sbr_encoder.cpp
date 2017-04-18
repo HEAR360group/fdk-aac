@@ -1987,7 +1987,7 @@ INT sbrEncoder_Init(
       for (coreEl=0; coreEl<noElements; coreEl++)
       {
         /* SBR only handles SCE and CPE's */
-        if (elInfo[coreEl].elType != ID_SCE && elInfo[coreEl].elType != ID_CPE) {
+        if (elInfo[coreEl].elType != ID_SCE && elInfo[coreEl].elType != ID_CPE && elInfo[coreEl].elType != ID_LFE) {
           continue;
         }
         /* check if desired configuration is available */
@@ -2079,7 +2079,7 @@ INT sbrEncoder_Init(
       for (coreEl=0; coreEl<noElements; coreEl++)
       {
         /* SBR only handles SCE and CPE's */
-        if (elInfo[coreEl].elType == ID_SCE || elInfo[coreEl].elType == ID_CPE) {
+        if (elInfo[coreEl].elType == ID_SCE || elInfo[coreEl].elType == ID_CPE || elInfo[coreEl].elType == ID_LFE) {
           el++;
         } else {
           continue;
@@ -2190,7 +2190,7 @@ INT sbrEncoder_Init(
         } /* third element loop */
 
         /* lfe */
-        FDKaacEnc_InitDownsampler (&hSbrEncoder->lfeDownSampler, 0, *downSampleFactor);
+        //FDKaacEnc_InitDownsampler (&hSbrEncoder->lfeDownSampler, 0, *downSampleFactor);
 
         /* Add the resampler additional delay to get the final delay and buffer offset values. */
         if (sbrOffset > 0 || downsampledOffset <= ((downsamplerDelay * (*numChannels))>>(*downSampleFactor-1))) {

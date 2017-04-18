@@ -2,7 +2,7 @@
 /* -----------------------------------------------------------------------------------------------------------
 Software License for The Fraunhofer FDK AAC Codec Library for Android
 
-© Copyright  1995 - 2015 Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+ï¿½ Copyright  1995 - 2015 Fraunhofer-Gesellschaft zur Fï¿½rderung der angewandten Forschung e.V.
   All rights reserved.
 
  1.    INTRODUCTION
@@ -379,9 +379,9 @@ void CProgramConfig_GetDefault( CProgramConfig *pPce,
     pPce->SideElementIsCpe[0]      = 1;
     pPce->NumBackChannelElements   = 1;
     pPce->BackElementIsCpe[0]      = 1;
-    pPce->NumLfeChannelElements    = 1;
+    pPce->NumLfeChannelElements    = 0;
     pPce->NumChannels              = 8;
-    pPce->NumEffectiveChannels     = 7;
+    pPce->NumEffectiveChannels     = 8;
     pPce->isValid                  = 1;
     break;
   /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -1503,4 +1503,3 @@ TRANSPORTDEC_ERROR DrmRawSdcAudioConfig_Parse(
 bail:
   return (ErrorStatus);
 }
-

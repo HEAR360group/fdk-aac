@@ -2,7 +2,7 @@
 /* -----------------------------------------------------------------------------------------------------------
 Software License for The Fraunhofer FDK AAC Codec Library for Android
 
-© Copyright  1995 - 2015 Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+ï¿½ Copyright  1995 - 2015 Fraunhofer-Gesellschaft zur Fï¿½rderung der angewandten Forschung e.V.
   All rights reserved.
 
  1.    INTRODUCTION
@@ -619,30 +619,31 @@ AAC_ENCODER_ERROR FDKaacEnc_InitPsyConfiguration(INT   bitrate,
 
     psyConf->clipEnergy = (FIXP_DBL)0x773593ff; /* FL2FXCONST_DBL(1.0e9*NORM_PCM_ENERGY); */
 
-    if (blocktype!=SHORT_WINDOW) {
-        psyConf->lowpassLine = (INT)((2*bandwidth*frameLengthLong)/samplerate);
-        psyConf->lowpassLineLFE = LFE_LOWPASS_LINE;
-    }
-    else {
+    //if (blocktype!=SHORT_WINDOW) {
+        //psyConf->lowpassLine = (INT)((2*bandwidth*frameLengthLong)/samplerate);
+        //psyConf->lowpassLineLFE = 0;//LFE_LOWPASS_LINE;
+    //}
+    //else {
         psyConf->lowpassLine = (INT)((2*bandwidth*frameLengthShort)/samplerate);
         psyConf->lowpassLineLFE = 0; /* LFE only in lonf blocks */
         /* psyConf->clipEnergy /= (TRANS_FAC * TRANS_FAC); */
         psyConf->clipEnergy >>= 6;
-    }
+    //}
 
     for (sfb = 0; sfb < psyConf->sfbCnt; sfb++){
         if (psyConf->sfbOffset[sfb] >= psyConf->lowpassLine)
             break;
     }
     psyConf->sfbActive = FDKmax(sfb, 1);
-
+/*
     for (sfb = 0; sfb < psyConf->sfbCnt; sfb++){
         if (psyConf->sfbOffset[sfb] >= psyConf->lowpassLineLFE)
             break;
     }
     psyConf->sfbActiveLFE = sfb;
     psyConf->sfbActive = FDKmax(psyConf->sfbActive, psyConf->sfbActiveLFE);
-
+*/
+    psyConf->sfbActiveLFE = psyConf->sfbActive;
     /* calculate minSnr */
     FDKaacEnc_initMinSnr(bitrate,
                samplerate,
@@ -654,4 +655,3 @@ AAC_ENCODER_ERROR FDKaacEnc_InitPsyConfiguration(INT   bitrate,
 
     return AAC_ENC_OK;
 }
-
